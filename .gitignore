@@ -1,0 +1,9 @@
+# 백업 파일
+index_backup_*.html
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
