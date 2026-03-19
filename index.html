@@ -427,11 +427,11 @@
     <!-- Filter Buttons -->
     <div class="flex flex-wrap justify-center gap-3 mb-14">
       <button class="filter-btn" data-filter="all">전체</button>
-      <button class="filter-btn" data-filter="career">취업/창업 프로그램</button>
-      <button class="filter-btn" data-filter="social">지역사회공헌 프로그램</button>
-      <button class="filter-btn" data-filter="event">경진대회 행사 운영</button>
-      <button class="filter-btn" data-filter="global">해외 프로그램</button>
-      <button class="filter-btn" data-filter="ai">AI 역량 강화 프로그램</button>
+      <button class="filter-btn" data-filter="career" style="border-color:#76BA66; color:#16a34a;">취업/창업 프로그램</button>
+      <button class="filter-btn" data-filter="social" style="border-color:#49A18C; color:#0d9488;">지역사회공헌 프로그램</button>
+      <button class="filter-btn" data-filter="event"  style="border-color:#F59E0B; color:#d97706;">경진대회 행사 운영</button>
+      <button class="filter-btn" data-filter="global" style="border-color:#3B82F6; color:#2563eb;">해외 프로그램</button>
+      <button class="filter-btn" data-filter="ai"     style="border-color:#8B5CF6; color:#7c3aed;">AI 역량 강화 프로그램</button>
     </div>
 
     <!-- Project Grid -->
@@ -631,11 +631,20 @@
   /* ── 필터 버튼 활성화 ───────────────────── */
   const filterBtns = document.querySelectorAll('.filter-btn');
 
+  const BTN_COLORS = {
+    career: { border: '#76BA66', text: '#16a34a' },
+    social: { border: '#49A18C', text: '#0d9488' },
+    event:  { border: '#F59E0B', text: '#d97706' },
+    global: { border: '#3B82F6', text: '#2563eb' },
+    ai:     { border: '#8B5CF6', text: '#7c3aed' },
+  };
+
   function setActiveBtn(activeBtn) {
     filterBtns.forEach(btn => {
-      btn.style.background  = '';
-      btn.style.color       = '#6b7280';
-      btn.style.borderColor = '#e5e7eb';
+      btn.style.background = '';
+      const col = BTN_COLORS[btn.dataset.filter];
+      btn.style.color       = col ? col.text   : '#6b7280';
+      btn.style.borderColor = col ? col.border : '#e5e7eb';
     });
     activeBtn.style.background  = 'linear-gradient(135deg, #76BA66 0%, #49A18C 100%)';
     activeBtn.style.color       = '#ffffff';
