@@ -134,8 +134,12 @@
 
     /* ── Partner Logos ────────────────────── */
     /* ── Mindmap Tags ───────────────────── */
-    .mk-tag {
+    .mk-pos {
       position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    .mk-tag {
+      display: inline-block;
       padding: 6px 14px;
       border-radius: 999px;
       font-size: .85rem;
@@ -143,9 +147,9 @@
       letter-spacing: .03em;
       white-space: nowrap;
       cursor: default;
-      transition: transform .2s, box-shadow .2s;
+      transition: box-shadow .2s;
     }
-    .mk-tag:hover { transform: scale(1.08) translateY(-4px) !important; box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+    .mk-tag:hover { box-shadow: 0 8px 24px rgba(0,0,0,.12) !important; }
     .mk-a { background:#f0fdf4; color:#16a34a; border: 1px solid rgba(118,186,102,.35); }
     .mk-b { background:#fff;    color:#16a34a; border: 1px solid rgba(118,186,102,.25); box-shadow: 0 2px 10px rgba(118,186,102,.1); }
     .mk-c { background:#f0fdfa; color:#0d9488; border: 1px solid rgba(73,161,140,.35); }
@@ -156,7 +160,8 @@
     @keyframes mf4 { 0%,100%{transform:translateY(-4px)} 50%{transform:translateY(10px)} }
     @keyframes mf5 { 0%,100%{transform:translateY(0)}    50%{transform:translateY(-8px)}  }
     @media (max-width:767px) {
-      .mk-tag { position: static; animation: none !important; }
+      .mk-pos { position: static; transform: none; }
+      .mk-tag { animation: none !important; }
     }
 
     .partner-item {
@@ -547,45 +552,48 @@
       <p class="text-gray-500 text-lg max-w-md mx-auto">우리가 집중하는 핵심 키워드들입니다.</p>
     </div>
 
-    <!-- Desktop mindmap -->
-    <div class="hidden md:block relative mx-auto" style="max-width:860px;height:640px;">
+    <!-- Desktop mindmap: JS가 위치 자동 계산 -->
+    <div id="mindmap-container" class="hidden md:block relative mx-auto" style="width:100%;max-width:700px;height:700px;">
+
+      <!-- 배경 원형 그라데이션 -->
+      <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);width:580px;height:580px;border-radius:50%;background:radial-gradient(circle, rgba(118,186,102,0.07) 0%, rgba(73,161,140,0.04) 60%, transparent 75%);pointer-events:none;"></div>
 
       <!-- Center logo -->
       <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;">
-        <div style="width:160px;height:160px;border-radius:50%;background:#fff;box-shadow:0 0 0 12px rgba(118,186,102,0.12),0 0 0 24px rgba(118,186,102,0.06),0 8px 40px rgba(118,186,102,0.2);display:flex;align-items:center;justify-content:center;overflow:hidden;">
-          <img src="./brand_logo/logo.png" alt="RAIZE" style="width:112px;height:112px;object-fit:contain;">
+        <div style="width:150px;height:150px;border-radius:50%;background:#fff;box-shadow:0 0 0 10px rgba(118,186,102,0.12),0 0 0 22px rgba(118,186,102,0.06),0 8px 40px rgba(118,186,102,0.2);display:flex;align-items:center;justify-content:center;">
+          <img src="./brand_logo/logo.png" alt="RAIZE" style="width:104px;height:104px;object-fit:contain;">
         </div>
       </div>
 
-      <!-- Tags: outer ring -->
-      <div class="mk-tag mk-a" style="left:37%;top:3%;animation:mf2 4.2s ease-in-out -1.1s infinite;">#AI</div>
-      <div class="mk-tag mk-b" style="left:50%;top:2%;animation:mf1 3.8s ease-in-out -0.4s infinite;">#계획수립</div>
-      <div class="mk-tag mk-c" style="left:63%;top:5%;animation:mf3 5.1s ease-in-out -2.3s infinite;">#B.SORI</div>
-      <div class="mk-tag mk-d" style="left:74%;top:11%;animation:mf2 4.6s ease-in-out -0.8s infinite;">#Design Thinking</div>
-      <div class="mk-tag mk-a" style="left:81%;top:24%;animation:mf1 3.5s ease-in-out -1.7s infinite;">#해외탐방</div>
-      <div class="mk-tag mk-d" style="left:73%;top:66%;animation:mf5 4.0s ease-in-out -2.9s infinite;">#대학연합</div>
-      <div class="mk-tag mk-a" style="left:61%;top:76%;animation:mf2 3.7s ease-in-out -1.4s infinite;">#진로프로그램</div>
-      <div class="mk-tag mk-b" style="left:47%;top:82%;animation:mf1 5.2s ease-in-out -0.2s infinite;">#지역사회공헌</div>
-      <div class="mk-tag mk-c" style="left:33%;top:81%;animation:mf4 4.3s ease-in-out -3.7s infinite;">#현직자특강</div>
-      <div class="mk-tag mk-d" style="left:19%;top:73%;animation:mf3 3.9s ease-in-out -1.9s infinite;">#창업역량강화</div>
-      <div class="mk-tag mk-a" style="left:8%;top:60%;animation:mf5 4.7s ease-in-out -0.9s infinite;">#취업역량강화</div>
-      <div class="mk-tag mk-c" style="left:6%;top:29%;animation:mf1 3.6s ease-in-out -1.2s infinite;">#기업탐방</div>
-      <div class="mk-tag mk-d" style="left:13%;top:16%;animation:mf4 4.4s ease-in-out -3.0s infinite;">#기업분석</div>
-      <div class="mk-tag mk-a" style="left:24%;top:7%;animation:mf3 5.3s ease-in-out -0.5s infinite;">#경진대회</div>
+      <!-- Outer ring tags -->
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf2 4.2s ease-in-out -1.1s infinite;">#AI</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf1 3.8s ease-in-out -0.4s infinite;">#계획수립</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf3 5.1s ease-in-out -2.3s infinite;">#B.SORI</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf2 4.6s ease-in-out -0.8s infinite;">#Design Thinking</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf1 3.5s ease-in-out -1.7s infinite;">#해외탐방</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf5 4.0s ease-in-out -2.9s infinite;">#대학연합</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf2 3.7s ease-in-out -1.4s infinite;">#진로프로그램</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf1 5.2s ease-in-out -0.2s infinite;">#지역사회공헌</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf4 4.3s ease-in-out -3.7s infinite;">#현직자특강</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf3 3.9s ease-in-out -1.9s infinite;">#창업역량강화</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf5 4.7s ease-in-out -0.9s infinite;">#취업역량강화</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf1 3.6s ease-in-out -1.2s infinite;">#기업탐방</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf4 4.4s ease-in-out -3.0s infinite;">#기업분석</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf3 5.3s ease-in-out -0.5s infinite;">#경진대회</div></div>
 
-      <!-- Tags: inner ring -->
-      <div class="mk-tag mk-b" style="left:44%;top:13%;animation:mf5 4.1s ease-in-out -2.0s infinite;">#반도체</div>
-      <div class="mk-tag mk-c" style="left:67%;top:29%;animation:mf2 3.9s ease-in-out -1.6s infinite;">#교육과정설계</div>
-      <div class="mk-tag mk-a" style="left:69%;top:56%;animation:mf1 4.8s ease-in-out -3.4s infinite;">#성과평가</div>
-      <div class="mk-tag mk-d" style="left:53%;top:71%;animation:mf4 5.1s ease-in-out -0.7s infinite;">#연구인재양성</div>
-      <div class="mk-tag mk-b" style="left:28%;top:65%;animation:mf3 4.2s ease-in-out -2.2s infinite;">#학과별 맞춤</div>
-      <div class="mk-tag mk-c" style="left:16%;top:42%;animation:mf5 3.7s ease-in-out -1.0s infinite;">#문제해결</div>
-      <div class="mk-tag mk-a" style="left:24%;top:28%;animation:mf2 4.5s ease-in-out -3.8s infinite;">#컨설팅</div>
+      <!-- Inner ring tags -->
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-c" style="animation:mf5 4.1s ease-in-out -2.0s infinite;">#반도체</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-d" style="animation:mf2 3.9s ease-in-out -1.6s infinite;">#교육과정설계</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-a" style="animation:mf1 4.8s ease-in-out -3.4s infinite;">#성과평가</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-b" style="animation:mf4 5.1s ease-in-out -0.7s infinite;">#연구인재양성</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-c" style="animation:mf3 4.2s ease-in-out -2.2s infinite;">#학과별 맞춤</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-d" style="animation:mf5 3.7s ease-in-out -1.0s infinite;">#문제해결</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-a" style="animation:mf2 4.5s ease-in-out -3.8s infinite;">#컨설팅</div></div>
     </div>
 
     <!-- Mobile: flex wrap -->
     <div class="md:hidden flex flex-wrap justify-center gap-3">
-      <span class="mk-tag mk-a">#AI</span><span class="mk-tag mk-b">#B.SORI</span><span class="mk-tag mk-c">#Design Thinking</span><span class="mk-tag mk-d">#경진대회</span><span class="mk-tag mk-a">#계획수립</span><span class="mk-tag mk-b">#교육과정설계</span><span class="mk-tag mk-c">#글로벌</span><span class="mk-tag mk-d">#기업분석</span><span class="mk-tag mk-a">#기업탐방</span><span class="mk-tag mk-b">#네트워킹</span><span class="mk-tag mk-c">#대학연합</span><span class="mk-tag mk-d">#문제해결</span><span class="mk-tag mk-a">#반도체</span><span class="mk-tag mk-b">#빅데이터</span><span class="mk-tag mk-c">#성과평가</span><span class="mk-tag mk-d">#연구인재양성</span><span class="mk-tag mk-a">#지역사회공헌</span><span class="mk-tag mk-b">#진로프로그램</span><span class="mk-tag mk-c">#창업역량강화</span><span class="mk-tag mk-d">#취업역량강화</span><span class="mk-tag mk-a">#컨설팅</span><span class="mk-tag mk-b">#학과별 맞춤</span><span class="mk-tag mk-c">#해외탐방</span><span class="mk-tag mk-d">#현직자특강</span>
+      <span class="mk-tag mk-a">#AI</span><span class="mk-tag mk-b">#계획수립</span><span class="mk-tag mk-c">#B.SORI</span><span class="mk-tag mk-d">#Design Thinking</span><span class="mk-tag mk-a">#해외탐방</span><span class="mk-tag mk-b">#대학연합</span><span class="mk-tag mk-c">#진로프로그램</span><span class="mk-tag mk-d">#지역사회공헌</span><span class="mk-tag mk-a">#현직자특강</span><span class="mk-tag mk-b">#창업역량강화</span><span class="mk-tag mk-c">#취업역량강화</span><span class="mk-tag mk-d">#기업탐방</span><span class="mk-tag mk-a">#기업분석</span><span class="mk-tag mk-b">#경진대회</span><span class="mk-tag mk-c">#반도체</span><span class="mk-tag mk-d">#교육과정설계</span><span class="mk-tag mk-a">#성과평가</span><span class="mk-tag mk-b">#연구인재양성</span><span class="mk-tag mk-c">#학과별 맞춤</span><span class="mk-tag mk-d">#문제해결</span><span class="mk-tag mk-a">#컨설팅</span>
     </div>
   </div>
 </section>
@@ -963,6 +971,33 @@
   }
 
   renderPartners();
+
+  /* ── 마인드맵 태그 위치 자동 계산 ─────── */
+  function positionMindmap() {
+    const container = document.getElementById('mindmap-container');
+    if (!container || window.innerWidth < 768) return;
+    const W = container.offsetWidth;
+    const H = container.offsetHeight;
+    const cx = W / 2, cy = H / 2;
+    const outerR = Math.min(W, H) * 0.41;
+    const innerR = Math.min(W, H) * 0.25;
+
+    const outerEls = container.querySelectorAll('[data-ring="outer"]');
+    const innerEls = container.querySelectorAll('[data-ring="inner"]');
+
+    outerEls.forEach((el, i) => {
+      const angle = (i / outerEls.length) * 2 * Math.PI - Math.PI / 2;
+      el.style.left = (cx + outerR * Math.cos(angle)) + 'px';
+      el.style.top  = (cy + outerR * Math.sin(angle)) + 'px';
+    });
+    innerEls.forEach((el, i) => {
+      const angle = (i / innerEls.length) * 2 * Math.PI - Math.PI / 6;
+      el.style.left = (cx + innerR * Math.cos(angle)) + 'px';
+      el.style.top  = (cy + innerR * Math.sin(angle)) + 'px';
+    });
+  }
+  positionMindmap();
+  window.addEventListener('resize', positionMindmap);
 </script>
 
 </body>
