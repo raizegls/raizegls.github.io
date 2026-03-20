@@ -735,14 +735,19 @@
       return `<span style="background:${col.bg}; color:${col.text}; border-radius:999px; padding:2px 10px; font-size:.7rem; font-weight:700; letter-spacing:.02em;">${CATEGORY_LABELS[c] || c}</span>`;
     }).join('');
 
+    const bullets = (project.outcome || '').split('|').map(s => s.trim()).filter(Boolean);
+    const outcomeHTML = bullets.length > 1
+      ? `<ul style="padding-left:0; margin:0; list-style:none;">${bullets.map(b => `<li style="display:flex; gap:6px; align-items:flex-start;"><span style="color:${primaryCol.stripe}; flex-shrink:0; margin-top:1px;">▸</span><span>${b}</span></li>`).join('')}</ul>`
+      : `<p>${bullets[0] || ''}</p>`;
+
     return `
       <div class="project-card card-hidden" data-category="${categories.join(',')}">
         <div class="card-accent-bar" style="background:${primaryCol.stripe};"></div>
         <div class="p-5 flex flex-col gap-2 flex-1">
           <div class="flex flex-wrap gap-1.5">${badges}</div>
           <h3 class="font-bold text-sm text-dark leading-snug">${project.title}</h3>
-          <p class="text-xs text-gray-400">${project.client || ''}</p>
-          <p class="text-xs text-gray-500 arrow-bullet leading-relaxed mt-auto pt-2">${project.outcome || ''}</p>
+          <p class="text-xs text-gray-400">${project.period || project.client || ''}</p>
+          <div class="text-xs text-gray-500 leading-relaxed mt-auto pt-2">${outcomeHTML}</div>
         </div>
       </div>`;
   }
