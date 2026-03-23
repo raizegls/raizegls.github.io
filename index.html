@@ -170,17 +170,15 @@
       background: #fff;
       border-radius: 18px;
       border: 1px solid #f0f0f0;
-      filter: grayscale(100%) opacity(.45);
-      transition: filter .3s ease, box-shadow .3s ease;
-      min-height: 88px;
+      transition: box-shadow .3s ease;
+      height: 110px;
     }
     .partner-item:hover {
-      filter: grayscale(0%) opacity(1);
       box-shadow: 0 8px 24px rgba(73,161,140,.15);
     }
     .partner-item img {
-      max-height: 64px;
-      max-width: 150px;
+      width: 140px;
+      height: 60px;
       object-fit: contain;
     }
     .partner-fallback-text {
@@ -382,6 +380,7 @@
           <div class="float-card-bot absolute -bottom-2 -left-6 bg-white rounded-2xl shadow-xl p-4 w-48">
             <div class="text-xs text-gray-400 mb-2">주요 활동지역</div>
             <div class="flex flex-wrap gap-1">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">서울</span>
               <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">부산</span>
               <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">광주</span>
               <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-50 text-gray-600">강원</span>
