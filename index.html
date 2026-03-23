@@ -140,9 +140,9 @@
     }
     .mk-tag {
       display: inline-block;
-      padding: 6px 14px;
+      padding: 7px 16px;
       border-radius: 999px;
-      font-size: .85rem;
+      font-size: .9rem;
       font-weight: 700;
       letter-spacing: .03em;
       white-space: nowrap;
@@ -196,6 +196,22 @@
     }
     .fade-up { animation: fadeUp .5s ease forwards; }
     .card-hidden { opacity: 0; }
+
+    /* ── Scroll Reveal ─────────────────────── */
+    .reveal, .reveal-l, .reveal-r, .reveal-s {
+      opacity: 0;
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal   { transform: translateY(36px); }
+    .reveal-l { transform: translateX(-44px); }
+    .reveal-r { transform: translateX(44px); }
+    .reveal-s { transform: scale(0.93); }
+    .in-view  { opacity: 1 !important; transform: none !important; }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+    .d5 { transition-delay: 0.5s; }
 
     /* ── Hero: 위로 떠오르는 애니메이션 ──── */
     @keyframes riseUp {
@@ -403,13 +419,13 @@
   <div class="max-w-6xl mx-auto px-6">
 
     <!-- Section Header -->
-    <div class="text-center mb-16">
+    <div class="text-center mb-16 reveal">
       <p class="text-sea font-semibold text-xs tracking-[.2em] uppercase mb-4">About RAIZE</p>
       <h2 class="font-sans font-black text-4xl text-dark mb-5">교육의 힘으로<br>변화를 만듭니다</h2>
     </div>
 
     <!-- Intro Text -->
-    <div class="max-w-3xl mx-auto text-center mb-14">
+    <div class="max-w-3xl mx-auto text-center mb-14 reveal d1">
       <p class="text-gray-700 text-lg leading-relaxed mb-5">
         RAIZE는 대학·공공기관·기업과 함께 교육 프로그램을 기획·설계·운영하는 교육 전문 기업입니다.
       </p>
@@ -420,15 +436,15 @@
 
     <!-- Stats -->
     <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-14">
-      <div class="text-center py-6 px-4 bg-white rounded-2xl" style="box-shadow:0 4px 20px rgba(118,186,102,0.1);">
+      <div class="text-center py-6 px-4 bg-white rounded-2xl reveal d1" style="box-shadow:0 4px 20px rgba(118,186,102,0.1);">
         <div class="font-black text-3xl mb-1" style="color:#76BA66;">25+</div>
         <div class="text-xs text-gray-400 font-medium">2025년 수행 프로젝트</div>
       </div>
-      <div class="text-center py-6 px-4 bg-white rounded-2xl" style="box-shadow:0 4px 20px rgba(73,161,140,0.1);">
+      <div class="text-center py-6 px-4 bg-white rounded-2xl reveal d2" style="box-shadow:0 4px 20px rgba(73,161,140,0.1);">
         <div class="font-black text-3xl mb-1" style="color:#49A18C;">28+</div>
         <div class="text-xs text-gray-400 font-medium">파트너 기관</div>
       </div>
-      <div class="text-center py-6 px-4 bg-white rounded-2xl" style="box-shadow:0 4px 20px rgba(118,186,102,0.1);">
+      <div class="text-center py-6 px-4 bg-white rounded-2xl reveal d3" style="box-shadow:0 4px 20px rgba(118,186,102,0.1);">
         <div class="font-black text-3xl mb-1" style="color:#76BA66;">7</div>
         <div class="text-xs text-gray-400 font-medium">프로그램 분야</div>
       </div>
@@ -438,7 +454,7 @@
     <div class="grid md:grid-cols-3 gap-6">
 
       <!-- Card 1 -->
-      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
+      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 reveal d1" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
         <div class="w-12 h-12 flex-shrink-0 grad-bg rounded-xl flex items-center justify-center">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
@@ -452,7 +468,7 @@
       </div>
 
       <!-- Card 2 -->
-      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
+      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 reveal d2" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
         <div class="w-12 h-12 flex-shrink-0 grad-bg rounded-xl flex items-center justify-center">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -466,7 +482,7 @@
       </div>
 
       <!-- Card 3 -->
-      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
+      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 reveal d3" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
         <div class="w-12 h-12 flex-shrink-0 grad-bg rounded-xl flex items-center justify-center">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
@@ -491,7 +507,7 @@
   <div class="max-w-6xl mx-auto px-6">
 
     <!-- Section Header -->
-    <div class="text-center mb-12">
+    <div class="text-center mb-12 reveal">
       <p class="text-sea font-semibold text-xs tracking-[.2em] uppercase mb-4">Credentials</p>
       <h2 class="font-sans font-black text-4xl text-dark mb-5">프로젝트 성과</h2>
       <p class="text-gray-500 text-lg max-w-md mx-auto">
@@ -500,7 +516,7 @@
     </div>
 
     <!-- Filter Buttons -->
-    <div class="flex flex-wrap justify-center gap-3 mb-14">
+    <div class="flex flex-wrap justify-center gap-3 mb-14 reveal d1">
       <button class="filter-btn" data-filter="all">전체</button>
       <button class="filter-btn" data-filter="career"     style="border-color:#76BA66; color:#16a34a;">진로/취업/창업</button>
       <button class="filter-btn" data-filter="social"     style="border-color:#49A18C; color:#0d9488;">지역사회</button>
@@ -543,24 +559,24 @@
 <!-- ═══════════════════════════════════════
      KEYWORDS MINDMAP
 ═══════════════════════════════════════ -->
-<section id="keywords" class="py-28 overflow-hidden" style="background: linear-gradient(135deg, #e8f5e3 0%, #daf0eb 100%);">
+<section id="keywords" class="py-8 overflow-hidden" style="background: linear-gradient(135deg, #e8f5e3 0%, #daf0eb 100%);">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-16">
+    <div class="text-center mb-8 reveal">
       <p class="text-sea font-semibold text-xs tracking-[.2em] uppercase mb-4">Core Keywords</p>
       <h2 class="font-sans font-black text-4xl text-dark mb-5">RAIZE가 하는 일</h2>
       <p class="text-gray-500 text-lg max-w-md mx-auto">우리가 집중하는 핵심 키워드들입니다.</p>
     </div>
 
     <!-- Desktop mindmap: JS가 위치 자동 계산 -->
-    <div id="mindmap-container" class="hidden md:block relative mx-auto" style="width:100%;max-width:700px;height:700px;">
+    <div id="mindmap-container" class="hidden md:block relative mx-auto reveal-s d2" style="width:100%;max-width:620px;height:620px;">
 
       <!-- 배경 원형 그라데이션 -->
-      <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);width:580px;height:580px;border-radius:50%;background:radial-gradient(circle, rgba(118,186,102,0.07) 0%, rgba(73,161,140,0.04) 60%, transparent 75%);pointer-events:none;"></div>
+      <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle, rgba(118,186,102,0.07) 0%, rgba(73,161,140,0.04) 60%, transparent 75%);pointer-events:none;"></div>
 
       <!-- Center logo -->
       <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;">
-        <div style="width:150px;height:150px;border-radius:50%;background:#fff;box-shadow:0 0 0 10px rgba(118,186,102,0.12),0 0 0 22px rgba(118,186,102,0.06),0 8px 40px rgba(118,186,102,0.2);display:flex;align-items:center;justify-content:center;">
-          <img src="./brand_logo/logo.png" alt="RAIZE" style="width:104px;height:104px;object-fit:contain;">
+        <div style="width:180px;height:180px;border-radius:50%;background:#fff;box-shadow:0 0 0 10px rgba(118,186,102,0.12),0 0 0 22px rgba(118,186,102,0.06),0 8px 40px rgba(118,186,102,0.2);display:flex;align-items:center;justify-content:center;">
+          <img src="./brand_logo/logo.png" alt="RAIZE" style="width:126px;height:126px;object-fit:contain;">
         </div>
       </div>
 
@@ -602,7 +618,7 @@
 <section id="partners" class="py-28 bg-gray-50">
   <div class="max-w-6xl mx-auto px-6">
 
-    <div class="text-center mb-14">
+    <div class="text-center mb-14 reveal">
       <p class="text-sea font-semibold text-xs tracking-[.2em] uppercase mb-4">Partners</p>
       <h2 class="font-sans font-black text-4xl text-dark mb-4">함께하는 대학 및 기관</h2>
       <p class="text-gray-500">RAIZE와 함께 교육의 가치를 만들어가는 파트너들입니다.</p>
@@ -918,6 +934,17 @@
 
   loadProjects();
 
+  /* ── Scroll Reveal Observer ──────────────── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .reveal-s').forEach(el => revealObserver.observe(el));
+
   /* ── 파트너 로고 마퀴 ────────────────────
      이미지 추가 방법:
      1. 프로젝트 폴더 안에 partners/ 폴더 생성
@@ -959,13 +986,14 @@
   function renderPartners() {
     const grid = document.getElementById('partner-grid');
     if (!grid) return;
-    grid.innerHTML = PARTNER_LOGOS.map(p => `
-      <div class="partner-item">
+    grid.innerHTML = PARTNER_LOGOS.map((p, i) => `
+      <div class="partner-item reveal" style="transition-delay:${(i % 4) * 0.08}s">
         <img src="${p.src}" alt="${p.alt}"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <span class="partner-fallback-text" style="display:none;">${p.alt}</span>
       </div>
     `).join('');
+    grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   }
 
   renderPartners();
