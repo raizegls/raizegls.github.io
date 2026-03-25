@@ -85,6 +85,100 @@
     .btn-primary:focus  { outline: none; box-shadow: 0 0 0 3px rgba(118,186,102,.4); }
     .btn-primary:active { transform: scale(.97); }
 
+    /* ── Portfolio CTA button icon ─────────── */
+    .btn-portfolio { display: inline-flex; align-items: center; gap: 12px; }
+    .btn-icon-wrap {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .btn-icon {
+      width: 16px; height: 16px;
+      display: block;
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .btn-portfolio:hover .btn-icon { transform: translateY(4px); }
+    .btn-portfolio:hover .btn-icon-wrap {
+      background: rgba(255,255,255,0.35);
+    }
+
+    /* ── Contact outline button icon ───────── */
+    .btn-outline.btn-contact { display: inline-flex; align-items: center; gap: 12px; }
+    .btn-icon-wrap-outline {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(118,186,102,0.10);
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: background .2s;
+    }
+    .btn-icon-outline {
+      width: 15px; height: 15px;
+      display: block;
+      color: #49A18C;
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .btn-contact:hover .btn-icon-outline { transform: scale(1.25); }
+    .btn-contact:hover .btn-icon-wrap-outline { background: rgba(118,186,102,0.18); }
+
+    /* ── Contact tooltip ───────────────────── */
+    .contact-btn-wrap { position: relative; display: inline-block; }
+    .contact-tooltip {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #fff;
+      color: #333;
+      font-size: .82rem;
+      font-weight: 500;
+      line-height: 1.6;
+      text-align: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      white-space: normal;
+      width: 300px;
+      box-shadow: 0 8px 32px rgba(73,161,140,.18), 0 2px 8px rgba(0,0,0,.08);
+      border: 1px solid rgba(118,186,102,.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s cubic-bezier(.4,0,.2,1);
+      z-index: 20;
+    }
+    .contact-tooltip-arrow {
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 13px; height: 7px;
+      background: #fff;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      filter: drop-shadow(0 2px 2px rgba(73,161,140,.1));
+    }
+    .contact-btn-wrap:hover .contact-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Nav tooltip (아래 방향) ────────────── */
+    .nav-tooltip {
+      bottom: auto;
+      top: calc(100% + 14px);
+      transform: translateX(-50%) translateY(-6px);
+    }
+    .nav-tooltip-arrow {
+      bottom: auto;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+    .contact-btn-wrap:hover .nav-tooltip {
+      transform: translateX(-50%) translateY(0);
+    }
+
     .btn-outline {
       display: inline-block;
       border: 2px solid #e5e7eb;
@@ -302,9 +396,17 @@
     </div>
 
     <!-- CTA -->
-    <a href="mailto:qna@raizegls.com" class="btn-primary" style="padding:10px 22px; border-radius:999px; font-size:.875rem;">
-      문의하기
-    </a>
+    <div class="contact-btn-wrap">
+      <div class="contact-tooltip nav-tooltip">
+        <div class="contact-tooltip-arrow nav-tooltip-arrow"></div>
+        <p style="font-weight:700;font-size:.88rem;margin-bottom:6px;">RAIZE와 함께해 주셔서 감사합니다 😊</p>
+        <p style="color:#6b7280;font-size:.78rem;line-height:1.7;margin-bottom:8px;">버튼을 누르시면 즉시 메일을 작성하실 수 있습니다.</p>
+        <p style="font-size:.75rem;font-weight:600;color:#49A18C;">✉ qna@raizegls.com</p>
+      </div>
+      <a href="mailto:qna@raizegls.com" class="btn-primary" style="padding:10px 22px; border-radius:999px; font-size:.875rem;">
+        문의하기
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -339,8 +441,31 @@
 
         <!-- Buttons -->
         <div class="hero-rise-4 flex flex-col sm:flex-row gap-4">
-          <a href="#credentials" class="btn-primary text-center">프로젝트 보기 &nbsp;↑</a>
-          <a href="mailto:qna@raizegls.com" class="btn-outline text-center">문의하기</a>
+          <a href="#credentials" class="btn-primary btn-portfolio text-center">
+            <span class="btn-label">포트폴리오 보기</span>
+            <span class="btn-icon-wrap">
+              <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+          </a>
+          <div class="contact-btn-wrap">
+            <div class="contact-tooltip">
+              <div class="contact-tooltip-arrow"></div>
+              <p style="font-weight:700;font-size:.88rem;margin-bottom:6px;">RAIZE와 함께해 주셔서 감사합니다 😌</p>
+              <p style="color:#6b7280;font-size:.78rem;line-height:1.7;margin-bottom:8px;">버튼을 누르시면 즉시 메일을 작성하실 수 있습니다.</p>
+              <p style="font-size:.75rem;font-weight:600;color:#49A18C;">✉ qna@raizegls.com</p>
+            </div>
+            <a href="mailto:qna@raizegls.com" class="btn-outline btn-contact text-center">
+              <span class="btn-label">문의하기</span>
+              <span class="btn-icon-wrap-outline">
+                <svg class="btn-icon-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <polyline points="2,4 12,13 22,4"/>
+                </svg>
+              </span>
+            </a>
+          </div>
         </div>
 
         <!-- Strengths -->
@@ -577,7 +702,7 @@
          target="_blank"
          class="inline-flex items-center gap-2 btn-outline"
          style="padding:12px 36px;">
-        더 많이 보기 &nbsp;↑
+        더 많이 보기 &nbsp;→
       </a>
     </div>
   </div>
@@ -587,19 +712,19 @@
 <!-- ═══════════════════════════════════════
      KEYWORDS MINDMAP
 ═══════════════════════════════════════ -->
-<section id="keywords" class="py-8 overflow-hidden" style="background: linear-gradient(135deg, #e8f5e3 0%, #daf0eb 100%);">
+<section id="keywords" class="py-28 overflow-hidden" style="background: linear-gradient(135deg, #e8f5e3 0%, #daf0eb 100%);">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-8 reveal">
+    <div class="text-center mb-14 reveal">
       <p class="text-sea font-semibold text-xs tracking-[.2em] uppercase mb-4">Core Keywords</p>
       <h2 class="font-sans font-black text-4xl text-dark mb-5">RAIZE가 하는 일</h2>
       <p class="text-gray-500 text-lg max-w-md mx-auto">RAIZE가 집중하는 핵심 키워드들입니다.</p>
     </div>
 
     <!-- Desktop mindmap: JS가 위치 자동 계산 -->
-    <div id="mindmap-container" class="hidden md:block relative mx-auto reveal-s d2" style="width:100%;max-width:900px;height:620px;">
+    <div id="mindmap-container" class="hidden md:block relative mx-auto reveal-s d2" style="width:100%;max-width:900px;height:450px;">
 
-      <!-- 배경 원형 그라데이션 -->
-      <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);width:680px;height:680px;border-radius:50%;background:radial-gradient(circle, rgba(118,186,102,0.07) 0%, rgba(73,161,140,0.04) 60%, transparent 75%);pointer-events:none;"></div>
+      <!-- 배경 타원형 그라데이션 -->
+      <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);width:820px;height:360px;border-radius:50%;background:radial-gradient(ellipse, rgba(118,186,102,0.07) 0%, rgba(73,161,140,0.04) 60%, transparent 75%);pointer-events:none;"></div>
 
       <!-- Center logo -->
       <div class="absolute" style="left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;">
@@ -610,32 +735,25 @@
 
       <!-- Outer ring tags -->
       <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf2 4.2s ease-in-out -1.1s infinite;">#AI</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf1 3.8s ease-in-out -0.4s infinite;">#계획수립</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf3 5.1s ease-in-out -2.3s infinite;">#B.SORI</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf2 4.6s ease-in-out -0.8s infinite;">#Design Thinking</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf1 3.5s ease-in-out -1.7s infinite;">#해외탐방</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf5 4.0s ease-in-out -2.9s infinite;">#대학연합</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf2 3.7s ease-in-out -1.4s infinite;">#진로프로그램</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf1 5.2s ease-in-out -0.2s infinite;">#지역사회공헌</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf4 4.3s ease-in-out -3.7s infinite;">#현직자특강</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf3 3.9s ease-in-out -1.9s infinite;">#창업역량강화</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf5 4.7s ease-in-out -0.9s infinite;">#취업역량강화</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf1 3.6s ease-in-out -1.2s infinite;">#기업탐방</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf4 4.4s ease-in-out -3.0s infinite;">#기업분석</div></div>
-      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf3 5.3s ease-in-out -0.5s infinite;">#경진대회</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf2 4.6s ease-in-out -0.8s infinite;">#Design Thinking</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf1 3.5s ease-in-out -1.7s infinite;">#해외탐방</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf2 3.7s ease-in-out -1.4s infinite;">#진로프로그램</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf1 5.2s ease-in-out -0.2s infinite;">#지역사회공헌</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-b" style="animation:mf4 4.3s ease-in-out -3.7s infinite;">#현직자특강</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-c" style="animation:mf3 3.9s ease-in-out -1.9s infinite;">#창업역량강화</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-d" style="animation:mf5 4.7s ease-in-out -0.9s infinite;">#취업역량강화</div></div>
+      <div class="mk-pos" data-ring="outer"><div class="mk-tag mk-a" style="animation:mf1 3.6s ease-in-out -1.2s infinite;">#기업탐방</div></div>
 
       <!-- Inner ring tags -->
-      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-c" style="animation:mf5 4.1s ease-in-out -2.0s infinite;">#반도체</div></div>
-      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-d" style="animation:mf2 3.9s ease-in-out -1.6s infinite;">#교육과정설계</div></div>
-      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-a" style="animation:mf1 4.8s ease-in-out -3.4s infinite;">#성과평가</div></div>
-      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-c" style="animation:mf3 4.2s ease-in-out -2.2s infinite;">#학과별 맞춤</div></div>
-      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-d" style="animation:mf5 3.7s ease-in-out -1.0s infinite;">#문제해결</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-b" style="animation:mf5 4.1s ease-in-out -2.0s infinite;">#반도체</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-c" style="animation:mf2 3.9s ease-in-out -1.6s infinite;">#교육과정설계</div></div>
+      <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-d" style="animation:mf3 4.2s ease-in-out -2.2s infinite;">#학과별맞춤</div></div>
       <div class="mk-pos" data-ring="inner"><div class="mk-tag mk-a" style="animation:mf2 4.5s ease-in-out -3.8s infinite;">#컨설팅</div></div>
     </div>
 
     <!-- Mobile: flex wrap -->
     <div class="md:hidden flex flex-wrap justify-center gap-3">
-      <span class="mk-tag mk-a">#AI</span><span class="mk-tag mk-b">#계획수립</span><span class="mk-tag mk-c">#B.SORI</span><span class="mk-tag mk-d">#Design Thinking</span><span class="mk-tag mk-a">#해외탐방</span><span class="mk-tag mk-b">#대학연합</span><span class="mk-tag mk-c">#진로프로그램</span><span class="mk-tag mk-d">#지역사회공헌</span><span class="mk-tag mk-a">#현직자특강</span><span class="mk-tag mk-b">#창업역량강화</span><span class="mk-tag mk-c">#취업역량강화</span><span class="mk-tag mk-d">#기업탐방</span><span class="mk-tag mk-a">#기업분석</span><span class="mk-tag mk-b">#경진대회</span><span class="mk-tag mk-c">#반도체</span><span class="mk-tag mk-d">#교육과정설계</span><span class="mk-tag mk-a">#성과평가</span><span class="mk-tag mk-b">#연구인재양성</span><span class="mk-tag mk-c">#학과별 맞춤</span><span class="mk-tag mk-d">#문제해결</span><span class="mk-tag mk-a">#컨설팅</span>
+      <span class="mk-tag mk-a">#AI</span><span class="mk-tag mk-b">#Design Thinking</span><span class="mk-tag mk-c">#해외탐방</span><span class="mk-tag mk-d">#진로프로그램</span><span class="mk-tag mk-a">#지역사회공헌</span><span class="mk-tag mk-b">#현직자특강</span><span class="mk-tag mk-c">#창업역량강화</span><span class="mk-tag mk-d">#취업역량강화</span><span class="mk-tag mk-a">#기업탐방</span><span class="mk-tag mk-b">#반도체</span><span class="mk-tag mk-c">#교육과정설계</span><span class="mk-tag mk-d">#학과별 맞춤</span><span class="mk-tag mk-a">#컨설팅</span>
     </div>
   </div>
 </section>
@@ -1111,21 +1229,23 @@
     const W = container.offsetWidth;
     const H = container.offsetHeight;
     const cx = W / 2, cy = H / 2;
-    const outerR = Math.min(W, H) * 0.41;
-    const innerR = Math.min(W, H) * 0.25;
+    const outerRX = W * 0.42;
+    const outerRY = H * 0.40;
+    const innerRX = W * 0.22;
+    const innerRY = H * 0.26;
 
     const outerEls = container.querySelectorAll('[data-ring="outer"]');
     const innerEls = container.querySelectorAll('[data-ring="inner"]');
 
     outerEls.forEach((el, i) => {
       const angle = (i / outerEls.length) * 2 * Math.PI - Math.PI / 2;
-      el.style.left = (cx + outerR * Math.cos(angle)) + 'px';
-      el.style.top  = (cy + outerR * Math.sin(angle)) + 'px';
+      el.style.left = (cx + outerRX * Math.cos(angle)) + 'px';
+      el.style.top  = (cy + outerRY * Math.sin(angle)) + 'px';
     });
     innerEls.forEach((el, i) => {
       const angle = (i / innerEls.length) * 2 * Math.PI - Math.PI / 6;
-      el.style.left = (cx + innerR * Math.cos(angle)) + 'px';
-      el.style.top  = (cy + innerR * Math.sin(angle)) + 'px';
+      el.style.left = (cx + innerRX * Math.cos(angle)) + 'px';
+      el.style.top  = (cy + innerRY * Math.sin(angle)) + 'px';
     });
   }
   positionMindmap();
