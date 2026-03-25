@@ -281,7 +281,7 @@
     <!-- Desktop Nav -->
     <div class="hidden md:flex items-center gap-8">
       <a href="#about"       class="nav-link">소개</a>
-      <a href="#credentials" class="nav-link">크리덴셜</a>
+      <a href="#credentials" class="nav-link">포트폴리오</a>
       <a href="#keywords"    class="nav-link">코어키워드</a>
       <a href="#partners"    class="nav-link">협력사</a>
       <a href="#contact"     class="nav-link">문의</a>
@@ -508,7 +508,7 @@
 
     <!-- Section Header -->
     <div class="text-center mb-12 reveal">
-      <p class="text-sea font-semibold text-xs tracking-[.2em] uppercase mb-4">Credentials</p>
+      <p class="text-sea font-semibold text-xs tracking-[.2em] uppercase mb-4">Portfolio</p>
       <h2 class="font-sans font-black text-4xl text-dark mb-5">프로젝트 성과</h2>
       <p class="text-gray-500 text-lg max-w-md mx-auto">
         RAIZE가 수행한 주요 프로젝트와 성과를 확인해보세요.
@@ -645,10 +645,10 @@
         <p class="text-gray-500 text-sm leading-relaxed mb-4 max-w-xs">
           교육의 힘으로 개인과 조직의 성장을 이끄는<br>전문 교육 컨설팅 기업
         </p>
-        <div class="flex items-center gap-2">
+        <!-- <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full shrink-0" style="background:#76BA66;"></span>
           <span class="text-gray-500 text-sm">현재 프로젝트 수주 가능</span>
-        </div>
+        </div> -->
       </div>
 
       <!-- Quick Links -->
@@ -656,7 +656,7 @@
         <h4 class="font-semibold text-dark text-sm mb-5 tracking-wide">바로가기</h4>
         <ul class="space-y-2.5">
           <li><a href="#about"       class="text-gray-500 text-sm hover:text-grass transition-colors duration-200">회사 소개</a></li>
-          <li><a href="#credentials" class="text-gray-500 text-sm hover:text-grass transition-colors duration-200">크리덴셜</a></li>
+          <li><a href="#credentials" class="text-gray-500 text-sm hover:text-grass transition-colors duration-200">포트폴리오</a></li>
           <li><a href="#keywords"    class="text-gray-500 text-sm hover:text-grass transition-colors duration-200">코어키워드</a></li>
           <li><a href="#partners"    class="text-gray-500 text-sm hover:text-grass transition-colors duration-200">협력사</a></li>
           <li><a href="#contact"     class="text-gray-500 text-sm hover:text-grass transition-colors duration-200">문의하기</a></li>
@@ -870,12 +870,12 @@
 
     const badges = categories.map(c => {
       const col = CATEGORY_COLORS[c] || { bg: '#f3f4f6', text: '#6b7280' };
-      return `<span style="background:${col.bg}; color:${col.text}; border-radius:999px; padding:2px 10px; font-size:.7rem; font-weight:700; letter-spacing:.02em;">${CATEGORY_LABELS[c] || c}</span>`;
+      return `<span style="background:${col.bg}; color:#333333; border-radius:999px; padding:2px 10px; font-size:.7rem; font-weight:700; letter-spacing:.02em;">${CATEGORY_LABELS[c] || c}</span>`;
     }).join('');
 
     const bullets = (project.outcome || '').split('|').map(s => s.trim()).filter(Boolean);
     const outcomeHTML = bullets.length > 1
-      ? `<ul style="padding-left:0; margin:0; list-style:none;">${bullets.map(b => `<li style="display:flex; gap:6px; align-items:flex-start;"><span style="color:${primaryCol.stripe}; flex-shrink:0; margin-top:1px;">▸</span><span>${b}</span></li>`).join('')}</ul>`
+      ? `<ul style="padding-left:0; margin:0; list-style:none;">${bullets.map(b => `<li style="display:flex; gap:6px; align-items:flex-start;"><span style="color:#333333; flex-shrink:0; margin-top:1px;">▸</span><span>${b}</span></li>`).join('')}</ul>`
       : `<p>${bullets[0] || ''}</p>`;
 
     return `
@@ -883,9 +883,9 @@
         <div class="card-accent-bar" style="background:${primaryCol.stripe};"></div>
         <div class="p-5 flex flex-col gap-2 flex-1">
           <div class="flex flex-wrap gap-1.5">${badges}</div>
-          <h3 class="font-bold text-sm text-dark leading-snug">${project.title}</h3>
-          <p class="text-xs text-gray-400">${project.period || project.client || ''}</p>
-          <div class="text-xs text-gray-500 leading-relaxed pt-2">${outcomeHTML}</div>
+          <h3 class="font-bold text-[1.3rem] text-dark leading-snug">${project.title}</h3>
+          <p class="text-xs text-dark">${project.period || project.client || ''}</p>
+          <div class="text-xs text-dark leading-relaxed pt-2">${outcomeHTML}</div>
         </div>
       </div>`;
   }
