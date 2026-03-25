@@ -114,6 +114,20 @@
     .filter-btn:hover  { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
     .filter-btn:focus  { outline: none; box-shadow: 0 0 0 3px rgba(118,186,102,.35); }
     .filter-btn:active { transform: scale(.97); }
+    .specialty-btn {
+      padding: 9px 22px;
+      border-radius: 999px;
+      border: 2px solid #e5e7eb;
+      font-size: .8125rem;
+      font-weight: 600;
+      color: #6b7280;
+      background: transparent;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .specialty-btn:hover  { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    .specialty-btn:focus  { outline: none; box-shadow: 0 0 0 3px rgba(118,186,102,.35); }
+    .specialty-btn:active { transform: scale(.97); }
 
     /* ── Project Cards ────────────────────── */
     .project-card {
@@ -542,6 +556,20 @@
       <p class="text-sm">등록된 프로젝트가 없습니다.</p>
     </div>
 
+    <!-- 특성화분야 필터 -->
+    <div class="mt-20 pt-16 reveal" style="border-top: 1px solid #e5e7eb;">
+      <div class="text-center mb-10">
+        <p class="text-gray-400 text-base mb-6">아니면, <span class="font-semibold" style="color:#49A18C;">특성화 분야</span>로도 조회해볼 수 있어요.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <button class="specialty-btn" data-specialty="all">전체</button>
+          <button class="specialty-btn" data-specialty="반도체" style="border-color:#6366F1; color:#4f46e5;">반도체</button>
+          <button class="specialty-btn" data-specialty="에너지" style="border-color:#F59E0B; color:#d97706;">에너지</button>
+          <button class="specialty-btn" data-specialty="AI"     style="border-color:#F43F5E; color:#be123c;">AI</button>
+          <button class="specialty-btn" data-specialty="ESG"    style="border-color:#49A18C; color:#0d9488;">ESG</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 더 많이 보기 버튼 (전체 탭에서 12개 초과 시 표시) -->
     <div id="load-more-wrap" class="text-center mt-12" style="display:none;">
       <a id="load-more-btn"
@@ -846,11 +874,76 @@
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       setActiveBtn(btn);
+      // 특성화분야 필터 "전체"로 리셋
+      setActiveSpecialtyBtn(specialtyBtns[0]);
       filterCards(btn.dataset.filter);
     });
   });
 
   setActiveBtn(document.querySelector('[data-filter="all"]'));
+
+  /* ── 특성화분야 필터 ─────────────────────── */
+  const specialtyBtns = document.querySelectorAll('.specialty-btn');
+
+  const SPECIALTY_BTN_COLORS = {
+    '반도체': { border: '#6366F1', text: '#4f46e5' },
+    '에너지': { border: '#F59E0B', text: '#d97706' },
+    'AI':     { border: '#F43F5E', text: '#be123c' },
+    'ESG':    { border: '#49A18C', text: '#0d9488' },
+  };
+
+  function setActiveSpecialtyBtn(activeBtn) {
+    specialtyBtns.forEach(btn => {
+      btn.style.background = '';
+      const col = SPECIALTY_BTN_COLORS[btn.dataset.specialty];
+      btn.style.color       = col ? col.text   : '#6b7280';
+      btn.style.borderColor = col ? col.border : '#e5e7eb';
+    });
+    activeBtn.style.background  = 'linear-gradient(135deg, #76BA66 0%, #49A18C 100%)';
+    activeBtn.style.color       = '#ffffff';
+    activeBtn.style.borderColor = 'transparent';
+  }
+
+  let currentSpecialtyFilter = 'all';
+
+  function filterSpecialtyCards(filter) {
+    currentSpecialtyFilter = filter;
+    const cards = document.querySelectorAll('#project-grid [data-specialty]');
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const specialty = (card.dataset.specialty || '').split(',').map(s => s.trim());
+      const match = filter === 'all' || specialty.includes(filter);
+      const withinLimit = filter !== 'all' || visibleCount < MAX_ALL;
+      const show = match && withinLimit;
+      if (match) visibleCount++;
+      if (show) {
+        card.style.display   = '';
+        card.style.opacity   = '0';
+        card.style.transform = 'translateY(16px)';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            card.style.transition = 'opacity .35s ease, transform .35s ease';
+            card.style.opacity    = '1';
+            card.style.transform  = 'translateY(0)';
+          });
+        });
+      } else {
+        card.style.display   = 'none';
+        card.style.transition = '';
+      }
+    });
+  }
+
+  specialtyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setActiveSpecialtyBtn(btn);
+      // 카테고리 필터 "전체"로 리셋
+      setActiveBtn(document.querySelector('[data-filter="all"]'));
+      filterSpecialtyCards(btn.dataset.specialty);
+    });
+  });
+
+  if (specialtyBtns.length > 0) setActiveSpecialtyBtn(specialtyBtns[0]);
 
   /* ── 카테고리별 색상 ────────────────────── */
   const CATEGORY_COLORS = {
@@ -879,7 +972,7 @@
       : `<p>${bullets[0] || ''}</p>`;
 
     return `
-      <div class="project-card card-hidden" data-category="${categories.join(',')}">
+      <div class="project-card card-hidden" data-category="${categories.join(',')}" data-specialty="${project.specialty || ''}">
         <div class="card-accent-bar" style="background:${primaryCol.stripe};"></div>
         <div class="p-5 flex flex-col gap-2 flex-1">
           <div class="flex flex-wrap gap-1.5">${badges}</div>
