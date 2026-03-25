@@ -116,7 +116,7 @@
     .filter-btn:active { transform: scale(.97); }
     .specialty-btn {
       padding: 9px 22px;
-      border-radius: 999px;
+      border-radius: 8px;
       border: 2px solid #e5e7eb;
       font-size: .8125rem;
       font-weight: 600;
@@ -530,7 +530,7 @@
     </div>
 
     <!-- Filter Buttons -->
-    <div class="flex flex-wrap justify-center gap-3 mb-14 reveal d1">
+    <div class="flex flex-wrap justify-center gap-3 mb-6 reveal d1">
       <button class="filter-btn" data-filter="all">전체</button>
       <button class="filter-btn" data-filter="career"     style="border-color:#76BA66; color:#16a34a;">진로/취업/창업</button>
       <button class="filter-btn" data-filter="social"     style="border-color:#49A18C; color:#0d9488;">지역사회</button>
@@ -539,6 +539,20 @@
       <button class="filter-btn" data-filter="ai"          style="border-color:#F59E0B; color:#d97706;">AI활용</button>
       <button class="filter-btn" data-filter="competency" style="border-color:#06B6D4; color:#0891b2;">역량강화</button>
       <button class="filter-btn" data-filter="consulting"  style="border-color:#F43F5E; color:#be123c;">컨설팅</button>
+    </div>
+
+    <!-- 특성화분야 필터 -->
+    <div class="pb-10 reveal d2" style="border-bottom: 1px solid #e5e7eb;">
+      <div class="text-center">
+        <p class="text-gray-700 text-lg mb-4"><br>아니면, <span style="color:#49A18C;">특성화 분야</span>로도 조회해볼 수 있어요.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <button class="specialty-btn" data-specialty="all">전체</button>
+          <button class="specialty-btn" data-specialty="반도체" style="border-color:#6366F1; color:#4f46e5;">반도체</button>
+          <button class="specialty-btn" data-specialty="에너지" style="border-color:#F59E0B; color:#d97706;">에너지</button>
+          <button class="specialty-btn" data-specialty="AI"     style="border-color:#F43F5E; color:#be123c;">AI</button>
+          <button class="specialty-btn" data-specialty="ESG"    style="border-color:#49A18C; color:#0d9488;">ESG</button>
+        </div>
+      </div>
     </div>
 
     <!-- Project Grid -->
@@ -550,24 +564,10 @@
       <span class="text-sm">프로젝트를 불러오는 중...</span>
     </div>
 
-    <div id="project-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" style="display:none;"></div>
+    <div id="project-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14" style="display:none;"></div>
 
     <div id="project-empty" class="text-center py-20 text-gray-400" style="display:none;">
       <p class="text-sm">등록된 프로젝트가 없습니다.</p>
-    </div>
-
-    <!-- 특성화분야 필터 -->
-    <div class="mt-20 pt-16 reveal" style="border-top: 1px solid #e5e7eb;">
-      <div class="text-center mb-10">
-        <p class="text-gray-400 text-base mb-6">아니면, <span class="font-semibold" style="color:#49A18C;">특성화 분야</span>로도 조회해볼 수 있어요.</p>
-        <div class="flex flex-wrap justify-center gap-3">
-          <button class="specialty-btn" data-specialty="all">전체</button>
-          <button class="specialty-btn" data-specialty="반도체" style="border-color:#6366F1; color:#4f46e5;">반도체</button>
-          <button class="specialty-btn" data-specialty="에너지" style="border-color:#F59E0B; color:#d97706;">에너지</button>
-          <button class="specialty-btn" data-specialty="AI"     style="border-color:#F43F5E; color:#be123c;">AI</button>
-          <button class="specialty-btn" data-specialty="ESG"    style="border-color:#49A18C; color:#0d9488;">ESG</button>
-        </div>
-      </div>
     </div>
 
     <!-- 더 많이 보기 버튼 (전체 탭에서 12개 초과 시 표시) -->
@@ -961,9 +961,22 @@
     const categories = (project.category || '').split(',').map(c => c.trim()).filter(Boolean);
     const primaryCol = CATEGORY_COLORS[categories[0]] || { stripe: '#76BA66', bg: '#f0fdf4', text: '#16a34a' };
 
+    const SPECIALTY_COLORS = {
+      '반도체': { bg: '#eef2ff', text: '#4f46e5' },
+      '에너지': { bg: '#fffbeb', text: '#d97706' },
+      'AI':     { bg: '#fff1f2', text: '#be123c' },
+      'ESG':    { bg: '#f0fdfa', text: '#0d9488' },
+    };
+
     const badges = categories.map(c => {
       const col = CATEGORY_COLORS[c] || { bg: '#f3f4f6', text: '#6b7280' };
       return `<span style="background:${col.bg}; color:#333333; border-radius:999px; padding:2px 10px; font-size:.7rem; font-weight:700; letter-spacing:.02em;">${CATEGORY_LABELS[c] || c}</span>`;
+    }).join('');
+
+    const specialties = (project.specialty || '').split(',').map(s => s.trim()).filter(Boolean);
+    const specialtyBadges = specialties.map(s => {
+      const col = SPECIALTY_COLORS[s] || { bg: '#f3f4f6', text: '#6b7280' };
+      return `<span style="background:${col.bg}; color:${col.text}; border-radius:4px; padding:2px 8px; font-size:.7rem; font-weight:700; letter-spacing:.02em;">${s}</span>`;
     }).join('');
 
     const bullets = (project.outcome || '').split('|').map(s => s.trim()).filter(Boolean);
@@ -975,7 +988,7 @@
       <div class="project-card card-hidden" data-category="${categories.join(',')}" data-specialty="${project.specialty || ''}">
         <div class="card-accent-bar" style="background:${primaryCol.stripe};"></div>
         <div class="p-5 flex flex-col gap-2 flex-1">
-          <div class="flex flex-wrap gap-1.5">${badges}</div>
+          <div class="flex flex-wrap gap-1.5">${badges}${specialtyBadges}</div>
           <h3 class="font-bold text-[1.3rem] text-dark leading-snug">${project.title}</h3>
           <p class="text-xs text-dark">${project.period || project.client || ''}</p>
           <div class="text-xs text-dark leading-relaxed pt-2">${outcomeHTML}</div>
