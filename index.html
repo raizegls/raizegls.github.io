@@ -606,7 +606,7 @@
           <div class="float-card-top absolute -top-2 -right-6 bg-white rounded-2xl shadow-xl p-4 w-52">
             <div class="flex items-center gap-1.5 mb-2">
               <span class="w-1.5 h-1.5 rounded-full" style="background:#76BA66;"></span>
-              <span class="text-xs text-gray-400">누적 운영 성과</span>
+              <span class="text-xs text-gray-400">최근 운영 성과</span>
             </div>
             <div class="flex items-baseline gap-1">
               <span id="hero-stat-projects" class="font-mono font-black text-3xl text-dark">50</span>
@@ -614,7 +614,7 @@
             </div>
             <div class="text-xs text-gray-400 mb-2">운영 프로그램</div>
             <div class="text-xs font-semibold" style="color:#49A18C;">
-              <span id="hero-stat-clients">30</span>개 협력기관 · <span id="hero-stat-cats">7</span>개 분야
+              <span id="hero-stat-cats">7</span>개 분야 · <span id="hero-stat-specs">4</span>개 특화분야
             </div>
           </div>
 
@@ -1305,17 +1305,20 @@
       const projects = await fetchProjects();
       allProjects = projects;
 
-      // ── 히어로 누적 성과 카드 자동 집계 ──
+      // ── 히어로 운영 성과 카드 자동 집계 ──
       if (projects && projects.length > 0) {
-        const clientSet = new Set(projects.map(p => (p.client || '').trim()).filter(Boolean));
-        const catSet = new Set();
-        projects.forEach(p => (p.category || '').split(',').map(c => c.trim()).filter(Boolean).forEach(c => catSet.add(c)));
+        const catSet  = new Set();
+        const specSet = new Set();
+        projects.forEach(p => {
+          (p.category  || '').split(',').map(c => c.trim()).filter(Boolean).forEach(c => catSet.add(c));
+          (p.specialty || '').split(',').map(s => s.trim()).filter(Boolean).forEach(s => specSet.add(s));
+        });
 
-        const projEl   = document.getElementById('hero-stat-projects');
-        const clientEl = document.getElementById('hero-stat-clients');
-        const catEl    = document.getElementById('hero-stat-cats');
-        if (clientEl) clientEl.textContent = clientSet.size;
-        if (catEl)    catEl.textContent    = catSet.size;
+        const projEl = document.getElementById('hero-stat-projects');
+        const catEl  = document.getElementById('hero-stat-cats');
+        const specEl = document.getElementById('hero-stat-specs');
+        if (catEl)  catEl.textContent  = catSet.size;
+        if (specEl) specEl.textContent = specSet.size;
         if (projEl) { projEl.dataset.target = projects.length; projEl.dataset.suffix = ''; runCounter(projEl); }
       }
 
