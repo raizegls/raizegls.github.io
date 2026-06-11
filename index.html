@@ -602,16 +602,19 @@
             </div>
           </div>
 
-          <!-- Floating card: recent project highlight -->
+          <!-- Floating card: cumulative impact -->
           <div class="float-card-top absolute -top-2 -right-6 bg-white rounded-2xl shadow-xl p-4 w-52">
             <div class="flex items-center gap-1.5 mb-2">
               <span class="w-1.5 h-1.5 rounded-full" style="background:#76BA66;"></span>
-              <span class="text-xs text-gray-400">최근 수행 프로젝트</span>
+              <span class="text-xs text-gray-400">누적 운영 성과</span>
             </div>
-            <div id="hero-latest-title" class="text-sm font-bold text-dark leading-snug mb-2">DAU-RISE Global Tech Insight 2026</div>
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <span id="hero-latest-cat" class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background:#eff6ff;color:#2563eb;">글로벌</span>
-              <span id="hero-latest-client" class="text-xs text-gray-400">동아대학교</span>
+            <div class="flex items-baseline gap-1">
+              <span id="hero-stat-projects" class="font-mono font-black text-3xl text-dark">50</span>
+              <span class="text-sm font-bold text-dark">건</span>
+            </div>
+            <div class="text-xs text-gray-400 mb-2">운영 프로그램</div>
+            <div class="text-xs font-semibold" style="color:#49A18C;">
+              <span id="hero-stat-clients">30</span>개 협력기관 · <span id="hero-stat-cats">7</span>개 분야
             </div>
           </div>
 
@@ -1302,27 +1305,18 @@
       const projects = await fetchProjects();
       allProjects = projects;
 
-      // ── 히어로 최신 프로젝트 카드 자동 업데이트 ──
+      // ── 히어로 누적 성과 카드 자동 집계 ──
       if (projects && projects.length > 0) {
-        const latest = projects[0];
-        const CAT_COLORS = {
-          career: { bg: '#f0fdf4', text: '#16a34a' },
-          social: { bg: '#f0fdfa', text: '#0d9488' },
-          global: { bg: '#eff6ff', text: '#2563eb' },
-          event:  { bg: '#f5f3ff', text: '#7c3aed' },
-          ai:     { bg: '#fffbeb', text: '#d97706' },
-          competency: { bg: '#ecfeff', text: '#0891b2' },
-          consulting: { bg: '#fff1f2', text: '#e11d48' },
-        };
-        const firstCat = (latest.category || '').split(',')[0].trim();
-        const label = CATEGORY_LABELS[firstCat] || firstCat;
-        const color = CAT_COLORS[firstCat] || { bg: '#f3f4f6', text: '#374151' };
-        const titleEl  = document.getElementById('hero-latest-title');
-        const catEl    = document.getElementById('hero-latest-cat');
-        const clientEl = document.getElementById('hero-latest-client');
-        if (titleEl)  titleEl.textContent  = latest.title  || '';
-        if (catEl)  { catEl.textContent = label; catEl.style.background = color.bg; catEl.style.color = color.text; }
-        if (clientEl) clientEl.textContent = latest.client || '';
+        const clientSet = new Set(projects.map(p => (p.client || '').trim()).filter(Boolean));
+        const catSet = new Set();
+        projects.forEach(p => (p.category || '').split(',').map(c => c.trim()).filter(Boolean).forEach(c => catSet.add(c)));
+
+        const projEl   = document.getElementById('hero-stat-projects');
+        const clientEl = document.getElementById('hero-stat-clients');
+        const catEl    = document.getElementById('hero-stat-cats');
+        if (clientEl) clientEl.textContent = clientSet.size;
+        if (catEl)    catEl.textContent    = catSet.size;
+        if (projEl) { projEl.dataset.target = projects.length; projEl.dataset.suffix = ''; runCounter(projEl); }
       }
 
       loading.style.display = 'none';
