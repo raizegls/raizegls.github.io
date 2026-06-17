@@ -882,6 +882,10 @@
         <input type="email" name="email" class="inquiry-input" placeholder="example@email.com" required>
       </div>
       <div>
+        <label class="block text-sm font-semibold text-dark mb-1.5">연락처 <span style="color:#76BA66;">*</span></label>
+        <input type="tel" name="phone" class="inquiry-input" placeholder="010-1234-5678" inputmode="tel" pattern="[0-9\-\s+()]{7,}" required>
+      </div>
+      <div>
         <label class="block text-sm font-semibold text-dark mb-1.5">문의 내용 <span style="color:#76BA66;">*</span></label>
         <textarea name="message" class="inquiry-input" placeholder="문의 내용을 입력해주세요." required></textarea>
       </div>
@@ -1003,8 +1007,9 @@
     const msg = document.getElementById('inquiry-msg');
     const name    = this.name.value.trim();
     const email   = this.email.value.trim();
+    const phone   = this.phone.value.trim();
     const message = this.message.value.trim();
-    if (!name || !email || !message) {
+    if (!name || !email || !phone || !message) {
       msg.style.color = '#e11d48';
       msg.textContent = '모든 항목을 입력해주세요.';
       return;
@@ -1021,7 +1026,7 @@
           'Content-Type': 'application/json',
           'Prefer': 'return=minimal'
         },
-        body: JSON.stringify({ name, email, message })
+        body: JSON.stringify({ name, email, phone, message })
       });
       if (!res.ok) throw new Error();
       msg.style.color = '#16a34a';
