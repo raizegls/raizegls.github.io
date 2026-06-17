@@ -94,7 +94,7 @@ const SUPABASE_KEY = '...';  // anon key (RLS로 보호, 공개 설계)
 
 - **Colors:** `#76BA66` (Grass Green) / `#49A18C` (Sea Green) / `#333333` (Dark)
 - **Fonts:** Pretendard (한글) + Montserrat (영문/숫자)
-- **Contact:** Footer 정적 텍스트 — DB 연동 문의 폼 없음 (`qna@raizegls.com`)
+- **Contact:** `#inquiry-form` 문의 폼(`inquiries` 테이블 연동) + Footer 정적 연락처(`qna@raizegls.com` / 070-4117-5323)
 
 ## Portfolio Categories
 
@@ -116,10 +116,24 @@ const SUPABASE_KEY = '...';  // anon key (RLS로 보호, 공개 설계)
 | `category` | text | 카테고리 키값 (콤마 구분 복수 가능) |
 | `specialty` | text | 특성화분야 (반도체/에너지/AI/ESG, 콤마 구분) |
 | `image_url` | text | Supabase Storage Public URL |
-| `client` | text | 발주처 또는 고객사 |
-| `outcome` | text | 주요 성과 요약 |
+| `period` | text | 운영 기간 (카드 부제로 표시) |
+| `outcome` | text | 주요 성과 요약 (`|` 구분 시 카드에서 불릿 목록) |
+
+> ⚠️ `client`/`발주처` 컬럼은 **없음**. 기관·기간 표기는 `period`를 사용한다.
 
 **Storage Bucket:** `project-images` (Public)
+
+## Database — Table: `inquiries` (문의 폼)
+
+| Column | Type | 설명 |
+|--------|------|------|
+| `name` | text | 이름(소속) |
+| `email` | text | 이메일 |
+| `phone` | text | 연락처(전화번호) |
+| `message` | text | 문의 내용 |
+| `status` | text | 처리 상태 (미확인 등) |
+
+문의 폼은 `index.html` `#inquiry-form` → `POST /rest/v1/inquiries`. 접수 목록은 `admin.html`에서 조회·상태변경·삭제.
 
 ---
 
@@ -128,5 +142,5 @@ const SUPABASE_KEY = '...';  // anon key (RLS로 보호, 공개 설계)
 - **NEVER `transition-all`** — `opacity`, `transform`만 허용
 - **NEVER Tailwind 기본 blue/indigo** — `#76BA66` / `#49A18C` 사용
 - **NEVER Service Role key** — anon key만 사용
-- **NO contact form** — Footer 정적 이메일 텍스트 유지
+- **문의 폼** — `#inquiry-form` → `inquiries` 테이블 적재, `admin.html`에서 관리 (Footer엔 정적 연락처도 병행 표기)
 - **모든 버튼** hover/focus/active/disabled 상태 필수 구현

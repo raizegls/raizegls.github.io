@@ -680,7 +680,7 @@
     <div class="grid md:grid-cols-3 gap-6">
 
       <!-- Card 1 -->
-      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 reveal d1" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
+      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-transform duration-300 hover:-translate-y-1 reveal d1" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
         <div class="w-12 h-12 flex-shrink-0 grad-bg rounded-xl flex items-center justify-center">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
@@ -694,7 +694,7 @@
       </div>
 
       <!-- Card 2 -->
-      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 reveal d2" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
+      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-transform duration-300 hover:-translate-y-1 reveal d2" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
         <div class="w-12 h-12 flex-shrink-0 grad-bg rounded-xl flex items-center justify-center">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -708,7 +708,7 @@
       </div>
 
       <!-- Card 3 -->
-      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 reveal d3" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
+      <div class="bg-white rounded-2xl p-7 flex flex-col gap-4 transition-transform duration-300 hover:-translate-y-1 reveal d3" style="box-shadow:0 4px 24px rgba(118,186,102,0.08);">
         <div class="w-12 h-12 flex-shrink-0 grad-bg rounded-xl flex items-center justify-center">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
@@ -1294,7 +1294,7 @@
         <div class="p-5 flex flex-col gap-2 flex-1">
           <div class="flex flex-wrap gap-1.5">${badges}${specialtyBadges}</div>
           <h3 class="font-bold text-[1.3rem] text-dark leading-snug">${project.title}</h3>
-          <p class="text-xs text-dark">${project.period || project.client || ''}</p>
+          <p class="text-xs text-dark">${project.period || ''}</p>
           <div class="text-xs text-dark leading-relaxed pt-2">${outcomeHTML}</div>
         </div>
       </div>`;
@@ -1500,7 +1500,7 @@
       ? projects.map(p => `
           <div class="kw-pi">
             <div class="kw-pi-title"><span style="color:#76BA66;margin-right:5px;">✦</span>${p.title}</div>
-            ${p.client ? `<div class="kw-pi-client">${p.client}</div>` : ''}
+            ${p.period ? `<div class="kw-pi-client">${p.period}</div>` : ''}
           </div>`).join('')
       : '<div class="kw-pi-empty">관련 프로젝트가 없습니다</div>';
 
